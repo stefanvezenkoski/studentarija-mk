@@ -51,7 +51,7 @@
 - Само овластени лица со валидни крединцијали можат да пристапат до `/admin` за уредување на содржината.
 
 Developers:
-- Stefan Vezenkoski
 - Mahmut Miftaroski
+- Stefan Vezenkoski
 - Mihajlo Krsteski
 ---
