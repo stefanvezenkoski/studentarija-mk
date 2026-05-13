@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@0,900;1,900&family=Unbounded:wght@400;500;600;700;800;900&family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-head: "Montserrat", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-mont: "Montserrat", sans-serif;
+  --font-syne: "Syne", sans-serif;
+  --font-dm: "DM Sans", sans-serif;
+  
+  --color-primary: #facc15;
+  --color-primary-dim: rgba(250, 204, 21, 0.1);
+
+  --animate-spin-slow: spin 12s linear infinite;
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 30s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
+}
+
+@layer base {
+  :root {
+    --bg-main: #ffffff;
+    --bg-secondary: #f4f4f4;
+    --bg-tertiary: #ebebeb;
+    --text-main: #000000;
+    --text-muted: #555555;
+    --border-main: rgba(0, 0, 0, 0.08);
+    --primary: #facc15;
+  }
+
+  .dark {
+    --bg-main: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #111111;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --border-main: rgba(255, 255, 255, 0.08);
+    --primary: #facc15;
+  }
+
+  * {
+    border-color: var(--border-main);
+  }
+  
+  body {
+    @apply bg-[var(--bg-main)] text-[var(--text-main)] font-sans antialiased selection:bg-primary selection:text-black;
+    font-variant-numeric: tabular-nums;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  /* Typography Fixes for Latin & Numbers */
+  h1, h2, h3, h4, h5, h6, .font-syne {
+    font-family: 'Syne', sans-serif !important;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Force Montserrat for Latin characters and all numbers by default */
+  :where(p, span, li, a, button, input, div) {
+    font-family: 'Montserrat', 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Specific class for technical/latin content */
+  .font-latin, .font-inter {
+    font-family: 'Inter', sans-serif !important;
+    letter-spacing: -0.01em;
+  }
+
+  /* Theme Support for data-theme attribute */
+  :root,
+  [data-theme="light"] {
+    --bg-main: #ffffff;
+    --bg-secondary: #f8f8f8;
+    --bg-tertiary: #f0f0f0;
+    --text-main: #000000;
+    --text-muted: #666666;
+    --border-main: rgba(0, 0, 0, 0.08);
+    --hover-bg: rgba(0, 0, 0, 0.03);
+  }
+
+  .dark,
+  [data-theme="dark"] {
+    --bg-main: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #141414;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --border-main: rgba(255, 255, 255, 0.08);
+    --hover-bg: rgba(255, 255, 255, 0.03);
+  }
+
+  /* Header Sophistication */
+  .header-blur {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+}
+
+.text-outline {
+  -webkit-text-stroke: 1.5px currentColor;
+  color: transparent;
+}
+
+.editorial-grid {
+  border-top: 1px solid var(--border-main);
+  border-bottom: 1px solid var(--border-main);
+}
+
+/* Modern components utility overrides - ensuring theme responsiveness */
+.bg-dark { background-color: var(--bg-main); }
+.bg-dark-2 { background-color: var(--bg-secondary); }
+.bg-zinc-900 { background-color: var(--bg-secondary); }
+.bg-zinc-800 { background-color: var(--bg-tertiary); }
+.bg-zinc-950 { background-color: var(--bg-main); }
+
+.bg-white\/5, .bg-white\/10 { background-color: var(--hover-bg); }
+
+.border-white\/5, .border-white\/10, .border-white\/20 { border-color: var(--border-main); }
+
+.text-dark-main { color: var(--text-main); }
+.text-dark-muted { color: var(--text-muted); }
+
+.text-dark { color: #09090b; }
+.bg-primary .text-dark { color: #09090b !important; }
+
+/* Tiptap Editor Styling */
+.ProseMirror {
+  min-height: 400px;
+  outline: none;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--text-muted);
+  pointer-events: none;
+  height: 0;
+  font-style: italic;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  margin: 1rem 0;
+}
+
+.ProseMirror h1 { font-size: 2rem; font-weight: 800; margin-top: 2rem; margin-bottom: 1rem; }
+.ProseMirror h2 { font-size: 1.5rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+.ProseMirror blockquote { border-left: 3px solid var(--primary); padding-left: 1.5rem; margin: 1.5rem 0; font-style: italic; }
+.ProseMirror ul { list-style-type: disc; padding-left: 1.5rem; margin: 1rem 0; }
+.ProseMirror ol { list-style-type: decimal; padding-left: 1.5rem; margin: 1rem 0; }
+
+.prose table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  margin: 2rem 0;
+  overflow: hidden;
+}
+
+.prose table td,
+.prose table th {
+  min-width: 1em;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 16px;
+  vertical-align: top;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.prose table th {
+  font-weight: bold;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.prose .taskList {
+  list-style: none;
+  padding: 0;
+}
+
+.prose .taskList li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.prose .taskList li label {
+  flex: 0 0 auto;
+  margin-right: 1.5rem;
+  user-select: none;
+}
+
+/* Rich Text Content Styling */
+.rich-text-content [style*="font-family: Bebas Neue"] {
+  font-family: 'Bebas Neue', sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.rich-text-content [style*="font-family: Montserrat"] {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.rich-text-content [style*="font-family: JetBrains Mono"] {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.9em;
+  background: rgba(255,255,255,0.05);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+.rich-text-content img {
+  border-radius: 2rem;
+  margin: 3rem auto;
+  box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5);
+  max-width: 100%;
+  display: block;
+}
+
+/* Tiptap Resizable Image Handles */
+.prose .ProseMirror-selectednode img {
+  outline: 3px solid #facc15;
+}
+
+.prose .image-resizer {
+  display: inline-block;
+  line-height: 0;
+  position: relative;
+}
+
+.prose .image-resizer img {
+  display: block;
+}
+
+.prose .image-resizer .resizer-handle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #facc15;
+  border: 2px solid #000;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.prose img {
+  transition: outline 0.2s ease;
+  cursor: pointer;
+}
+
+.prose img:hover {
+  outline: 2px solid rgba(250, 204, 21, 0.3);
+}
+
+.rich-text-content a {
+  color: #facc15;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 700;
+}
+
+.rich-text-content h1, 
+.rich-text-content h2, 
+.rich-text-content h3 {
+  color: var(--text-main);
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.rich-text-content p {
+  margin-bottom: 1.5rem;
+}
+
+.rich-text-content blockquote {
+  border-left: 4px solid #facc15;
+  background: rgba(250, 204, 21, 0.05);
+  padding: 2rem 3rem;
+  border-radius: 0 2rem 2rem 0;
+  font-style: italic;
+  font-weight: 500;
+  margin: 3rem 0;
+  color: var(--text-main);
+}
