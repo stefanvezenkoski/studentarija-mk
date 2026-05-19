@@ -55,3 +55,8 @@ Developers:
 - Stefan Vezenkoski
 - Mihajlo Krsteski
 ---
+
+## License
+
+This project is proprietary.
+Unauthorized copying, distribution, or use is prohibited.
